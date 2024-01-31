@@ -1,12 +1,20 @@
-const http = require('http');
-const PORT = 3000;
+import express from "express";
+import dotenv from "dotenv";
+dotenv.config();
+import bodyParser from "body-parser";
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World!');
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  console.log(req.body)
+  res.status(200);
 });
 
-server.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}/`);
+
+
+app.listen(process.env.PORT, () => {
+  console.log(`Listening on port ${process.env.PORT}`);
 });
